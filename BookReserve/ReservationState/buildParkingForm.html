@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the buildParkingForm method from the ReservationState class, for the Dart programming language.">
+  <title>buildParkingForm method - ReservationState class - BookReserve library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">parking_system</a></li>
+    <li><a href="../../BookReserve/">BookReserve.dart</a></li>
+    <li><a href="../../BookReserve/ReservationState-class.html">ReservationState</a></li>
+    <li class="self-crumb">buildParkingForm method</li>
+  </ol>
+  <div class="self-name">buildParkingForm</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button" title="Toggle brightness">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        dark_mode
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        light_mode
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="BookReserve&#47;ReservationState-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
+<h1><span class="kind-method">buildParkingForm</span> method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+  <div>
+    <ol class="annotation-list">
+        <li>@<a href="https://api.flutter.dev/flutter/dart-core/override-constant.html">override</a></li>
+    </ol>
+  </div>
+<span class="returntype"><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a></span>
+<span class="name ">buildParkingForm</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="buildParkingForm-param-zone"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span> <span class="parameter-name">zone</span>, </span></li>
+<li><span class="parameter" id="buildParkingForm-param-setModalState"><span class="type-annotation">void</span> <span class="parameter-name">setModalState</span>(<ol class="parameter-list single-line"> <li><span class="parameter" id="param-"><span class="type-annotation">void</span> <span class="parameter-name"></span>()</span></li>
+</ol>)</span></li>
+</ol>)
+
+      
+
+    </section>
+    
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">@override
+Widget buildParkingForm(Map&lt;String, dynamic&gt; zone, void Function(void Function()) setModalState) {
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        &quot;Reserve Parking in ${zone[&#39;SubArea&#39;]}&quot;,
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      ),
+      SizedBox(height: 10),
+      Text(&quot;Area: ${zone[&#39;Area&#39;]} (${zone[&#39;AreaCode&#39;]}${zone[&#39;SubAreaCode&#39;]})&quot;),
+      SizedBox(height: 20),
+      Text(&quot;Enter License Plate&quot;),
+      TextField(
+        controller: _licensePlateController,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(),
+          hintText: &quot;12-34567&quot;,
+        ),
+      ),
+      SizedBox(height: 20),
+      Text(&quot;Select Arrival Date&quot;),
+      ListTile(
+        title: Text(_selectedDate == null
+            ? &quot;Select date&quot;
+            : &quot;${_selectedDate!.day}&#47;${_selectedDate!.month}&#47;${_selectedDate!.year}&quot;),
+        trailing: Icon(Icons.calendar_today),
+        onTap: () =&gt; _selectDate(context),
+      ),
+      SizedBox(height: 10),
+      Text(&quot;Select Arrival Time&quot;),
+      ListTile(
+        title: Text(_selectedTime == null
+            ? &quot;Select time&quot;
+            : _selectedTime!.format(context)),
+        trailing: Icon(Icons.access_time),
+        onTap: () =&gt; _selectTime(context),
+      ),
+      SizedBox(height: 20),
+      Text(&quot;Select Duration (Hours)&quot;),
+      Column(
+        children: [
+          for (int i = 1; i &lt;= 4; i++)
+            RadioListTile&lt;int&gt;(
+              title: Text(&quot;$i Hour${i &gt; 1 ? &#39;s&#39; : &#39;&#39;}&quot;),
+              value: i,
+              groupValue: _selectedDuration,
+              onChanged: (int? value) {
+                setModalState(() {
+                  _selectedDuration = value;
+                });
+              },
+            ),
+        ],
+      ),
+      SizedBox(height: 20),
+      Center(
+        child: ElevatedButton(
+          onPressed: () {
+            String licensePlate = _licensePlateController.text;
+
+            if (licensePlate.isEmpty || _selectedDuration == null) {
+              showDialog(
+                context: context,
+                builder: (context) =&gt; AlertDialog(
+                  title: Text(&quot;Missing Information&quot;),
+                  content: Text(&quot;Please enter all the necessary information.&quot;),
+                  actions: [
+                    TextButton(
+                      onPressed: () =&gt; Navigator.of(context).pop(),
+                      child: Text(&quot;OK&quot;),
+                    ),
+                  ],
+                ),
+              );
+            } else if (!_isValidJordanLicensePlate(licensePlate)) {
+              showDialog(
+                context: context,
+                builder: (context) =&gt; AlertDialog(
+                  title: Text(&quot;Invalid License Plate&quot;),
+                  content: Text(&quot;Please enter a valid Jordanian license plate (e.g., 12-34567).&quot;),
+                  actions: [
+                    TextButton(
+                      onPressed: () =&gt; Navigator.of(context).pop(),
+                      child: Text(&quot;OK&quot;),
+                    ),
+                  ],
+                ),
+              );
+            } else if (_selectedDate == null || _selectedTime == null) {
+              showDialog(
+                context: context,
+                builder: (context) =&gt; AlertDialog(
+                  title: Text(&quot;Missing Information&quot;),
+                  content: Text(&quot;Please select both date and time for your reservation.&quot;),
+                  actions: [
+                    TextButton(
+                      onPressed: () =&gt; Navigator.of(context).pop(),
+                      child: Text(&quot;OK&quot;),
+                    ),
+                  ],
+                ),
+              );
+            } else {
+              handleParkingRequest(zone);
+              Navigator.of(context).pop();
+            }
+          },
+          style: ElevatedButton.styleFrom(
+            foregroundColor: Colors.white,
+            backgroundColor: Colors.black,
+          ),
+          child: Text(&quot;Make Reservation&quot;),
+        ),
+      ),
+      SizedBox(height: 20),
+    ],
+  );
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">parking_system</a></li>
+    <li><a href="../../BookReserve/">BookReserve</a></li>
+    <li><a href="../../BookReserve/ReservationState-class.html">ReservationState</a></li>
+    <li class="self-crumb">buildParkingForm method</li>
+</ol>
+
+    <h5>ReservationState class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    parking_system
+      1.0.0+1
+  </span>
+  
+</footer>
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+
